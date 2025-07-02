@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Para Taina 💌</title>
+    <link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap" rel="stylesheet" />
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Patrick Hand', cursive;
+            background: linear-gradient(135deg, #b19cd9, #8a2be2);
+            color: #3a005a;
+            min-height: 100vh;
+            padding-top: 60px;
+            /* espaço para menu fixo */
+            scroll-behavior: smooth;
+        }
+
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(58, 0, 90, 0.95);
+            height: 60px;
+            display: flex;
+            align-items: center;
+            padding: 0 20px;
+            z-index: 1000;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+            user-select: none;
+        }
+
+        .menu-toggle {
+            cursor: pointer;
+            width: 30px;
+            height: 22px;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .menu-toggle span {
+            display: block;
+            height: 4px;
+            background: #f0e6ff;
+            border-radius: 2px;
+            transition: 0.3s;
+        }
+
+        nav {
+            position: fixed;
+            top: 60px;
+            left: -220px;
+            width: 200px;
+            background: rgba(90, 50, 130, 0.95);
+            height: calc(100% - 60px);
+            padding-top: 20px;
+            transition: left 0.3s ease;
+            box-shadow: 2px 0 6px rgba(0, 0, 0, 0.4);
+            z-index: 999;
+            border-radius: 0 10px 10px 0;
+        }
+
+        nav.open {
+            left: 0;
+        }
+
+        nav a {
+            display: block;
+            color: #f0e6ff;
+            text-decoration: none;
+            padding: 12px 20px;
+            font-size: 1.2rem;
+            border-left: 4px solid transparent;
+            transition: background 0.3s, border-left-color 0.3s;
+        }
+
+        nav a:hover {
+            background: #7b54d9;
+            border-left-color: #ffd6f7;
+        }
+
+        .counters {
+            text-align: center;
+            font-family: 'Patrick Hand', cursive;
+            color: white;
+            user-select: none;
+        }
+
+        .contador {
+            margin-bottom: 1.2rem;
+        }
+
+        .texto {
+            font-size: 1.1rem;
+            font-weight: 600;
+            opacity: 0.7;
+        }
+
+        .numero {
+            font-size: 2.1rem;
+            font-weight: 900;
+            line-height: 1.2;
+            margin-top: 0.1rem;
+        }
+
+
+        main {
+            max-width: 650px;
+            margin: auto;
+            padding: 0 0 60px;
+            /* espaço para contadores no topo e footer */
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            z-index: 1;
+        }
+
+        .card {
+            background: #fff;
+            border-radius: 20px;
+            padding: 2rem 2.5rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            color: #3a005a;
+            line-height: 1.5;
+            font-size: 1.3rem;
+            user-select: text;
+        }
+
+        .card strong {
+            color: #7b54d9;
+            font-weight: 700;
+        }
+
+        .card p {
+            margin: 1rem 0;
+        }
+
+        footer {
+            text-align: center;
+            padding: 14px 10px;
+            color: white;
+            font-size: 0.9rem;
+            user-select: none;
+            font-family: 'Patrick Hand', cursive;
+            margin-top: 30px;
+        }
+
+        .buttons {
+            margin-top: 2rem;
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .buttons button {
+            background-color: #d8a8ff;
+            color: #3b0061;
+            border-radius: 12px;
+            padding: 1rem 2.2rem;
+            font-size: 1.2rem;
+            border: none;
+            cursor: pointer;
+            font-weight: 700;
+            box-shadow: 0 0 8px #ac85ffcc;
+            transition: background-color 0.3s ease;
+            user-select: none;
+        }
+
+        .buttons button:hover {
+            background-color: #ffd6f7;
+        }
+
+        #nao {
+            position: relative;
+            background-color: #9d67e3;
+            color: white;
+            box-shadow: 0 0 12px #7b54d9cc;
+        }
+
+        #nao:hover {
+            background-color: #7b54d9;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <div class="menu-toggle" id="menu-toggle" aria-label="Abrir menu" role="button" tabindex="0">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </header>
+
+    <nav id="menu">
+        <a href="#intro">Explicação</a>
+        <a href="#sensacional">Por que te acho sensacional?</a>
+        <a href="#gosto">O que sinto por você</a>
+    </nav>
+
+
+
+    <main>
+
+        <div class="counters" aria-live="polite" aria-atomic="true">
+            <div class="contador">
+                <div class="texto">Dias apaixonado por você</div>
+                <div class="numero" id="diasApaixonado">0d 0h 0m 0s</div>
+                <div class="texto">Dias desde nosso primeiro beijo</div>
+                <div class="numero" id="diasBeijo">0d 0h 0m 0s</div>
+            </div>
+        </div>
+
+
+        <section id="intro" class="card" tabindex="0" aria-label="Explicação">
+            <p><strong>Qual foi minha ideia?</strong></p>
+            <p>Bom, você tinha me dito que não sabia com o que eu trabalhava, então eu decidi fazer isso para que você
+                entendesse e também reunir o útil ao agradável: te fiz essa cartinha virtual. Eu tô sendo meloso demais,
+                mas se quiser eu diminuo.</p>
+            <p>Abaixo vou dividir em tópicos tudo que penso sobre você.</p>
+        </section>
+
+        <section id="sensacional" class="card" tabindex="0" aria-label="Por que te acho sensacional">
+            <p><strong>Por que te acho sensacional?</strong></p>
+            <p>Você é incrível. Inteligente, linda (isso você já sabe), mas também gentil, engraçada ao mesmo tempo.</p>
+            <p>Desde que te conheci, o mundo ficou mais colorido, e confesso que o pensamento de te ter por
+                perto virou um daqueles desejos que torço para não passar.</p>
+            <p><strong>Não é só uma paixonite, Taina.</strong> Eu gosto de você. Gosto MESMO. E adoraria conquistar esse
+                coraçãozinho frio de capricorniana ♑ e ter algo real com tu.</p>
+            <p>Mas caso não queira, tudo bem, eu te sequestro. 😂</p>
+        </section>
+
+        <section id="gosto" class="card" tabindex="0" aria-label="O que sinto por você">
+            <p style="text-align: center;"><strong>Gostou minha paixão?</strong></p>
+            <div class="buttons" aria-label="Escolha sim ou não">
+                <button onclick="responder()">Sim 💖</button>
+                <button id="nao" onmouseover="foge()">Não 🙈</button>
+            </div>
+        </section>
+    </main>
+
+    <footer>Design by Vander Wender 2025</footer>
+
+    <script>
+        // Menu toggle
+        const menuToggle = document.getElementById('menu-toggle');
+        const menu = document.getElementById('menu');
+        menuToggle.addEventListener('click', () => {
+            menu.classList.toggle('open');
+        });
+        menuToggle.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                menu.classList.toggle('open');
+            }
+        });
+
+        function responder() {
+            alert("Que bom meu amor!!!! 💌");
+            window.open("https://www.youtube.com/watch?v=eQLxAGEV_6U", "_blank");
+        }
+
+        function foge() {
+            const btn = document.getElementById('nao');
+            const audioFoge = new Audio('https://www.soundjay.com/button/sounds/button-16.mp3');
+            const x = Math.floor(Math.random() * 250) - 125;
+            const y = Math.floor(Math.random() * 250) - 125;
+            btn.style.transition = 'transform 0.3s ease-out';
+            btn.style.transform = `translate(${x}px, ${y}px)`;
+            audioFoge.play();
+        }
+
+        // Função para calcular dias, horas, minutos, segundos desde uma data
+        function calcTempoCompleto(fromDate) {
+            const now = new Date();
+            let diffMs = now - fromDate;
+
+            const dias = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+            diffMs -= dias * (1000 * 60 * 60 * 24);
+
+            const horas = Math.floor(diffMs / (1000 * 60 * 60));
+            diffMs -= horas * (1000 * 60 * 60);
+
+            const minutos = Math.floor(diffMs / (1000 * 60));
+            diffMs -= minutos * (1000 * 60);
+
+            const segundos = Math.floor(diffMs / 1000);
+
+            return `${dias}d ${horas}h ${minutos}m ${segundos}s`;
+        }
+
+        // Atualiza os contadores no topo
+        function updateCounters() {
+            const apaixonadoDesde = new Date(2025, 4, 12, 12, 0, 0); // 12/05/2025 12:00
+            const beijoDesde = new Date(2025, 5, 30, 17, 15, 0); // 30/06/2025 17:15
+
+            document.getElementById('diasApaixonado').textContent = `${calcTempoCompleto(apaixonadoDesde)}`;
+            document.getElementById('diasBeijo').textContent = `${calcTempoCompleto(beijoDesde)}`;
+        }
+        updateCounters();
+        setInterval(updateCounters, 1000);
+
+        const slider = document.getElementById('slider');
+        const slideWidth = slider.clientWidth;
+        let currentSlide = 0;
+        const totalSlides = slider.querySelectorAll('.slide').length;
+
+        setInterval(() => {
+            currentSlide = (currentSlide + 1) % totalSlides;
+            slider.scrollTo({
+                left: currentSlide * slideWidth,
+                behavior: 'smooth'
+            });
+        }, 2000);
+
+        window.addEventListener('DOMContentLoaded', () => {
+            const audio = document.getElementById('bg-music');
+            audio.volume = 0.5;
+            audio.play().catch(() => { });
+        });
+    </script>
+</body>
+
+</html>
